@@ -1,3 +1,5 @@
+[English](/README.md)
+
 ## png画像のハッシュ値を計算
 一旦rustのコードをコンパイルして使用する。
 ```bash
