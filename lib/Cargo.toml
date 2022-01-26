@@ -1,0 +1,22 @@
+[package]
+name = "phash-image-comparison"
+version = "0.0.1"
+authors = ["j7w2 <guenocross@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+image = "0.23.14"
+img_hash = "3.1.1"
+wasm-bindgen = "0.2"
+
+[[bin]]
+name = "main"
+path = "src/main.rs"
+
+[[bin]]
+name = "hash"
+path = "src/hash.rs"
