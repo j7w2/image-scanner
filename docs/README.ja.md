@@ -19,3 +19,10 @@ pngファイル名は識別するためのID(数値)などにしておくと扱�
 ```bash
 1|wAFxDESsSCtlqa6yYM/IUEYU 1|wAF2CE3oiCZtMqTxYk6mCAR0 1|RIt3xMhoyCZtKKVyYM6QOES0....
 ```
+## Usage
+### Webpackコンパイルして利用する場合
+以下のコマンドでdistディレクトリにエントリーポイントとwasmが出力される。
+```bash
+npm install
+npm run build
+```
