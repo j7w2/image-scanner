@@ -1,4 +1,4 @@
-[日本語](/doc/README.ja.md)
+[日本語](/docs/README.ja.md)
 ## Create hashes from png images
 Compile and use the rust code.
 ```bash
