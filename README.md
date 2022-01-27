@@ -7,7 +7,7 @@ A system that determines whether the image of a target projected by activating a
 ## Create hashes from png images
 The hash value is calculated by trimming the pre-prepared image into a sliding image as shown below.   
 
-![images](https://i-407.com/images/github/image-trims.png)  
+![images](https://i-407.com/images/github/image-trims_hu365f12c1d7c40a6ecfc0fef77bd6436b_40434_400x1524_fit_q95_h2_box_3.webp)  
 
 Compile and use the rust code.
 ```bash
