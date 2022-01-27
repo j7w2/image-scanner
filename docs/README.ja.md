@@ -12,7 +12,7 @@ cargo build --bin hash --release
 pngファイル名は識別するためのID(数値)などにしておくと扱いやすい。  
 例(1.png)
 ```bash
-./lib/target/release/hash ./png_images ./hash
+./lib/target/release/hash ./png_images ./src/hash
 ```
 
 以下のようなテキストファイルが出力される。[ファイル名]|[ハッシュ値]が列挙された文字列となる。
@@ -21,8 +21,13 @@ pngファイル名は識別するためのID(数値)などにしておくと扱�
 ```
 ## Usage
 ### Webpackコンパイルして利用する場合
+上記のhashファイルを./src/hashに配置する。  
 以下のコマンドでdistディレクトリにエントリーポイントとwasmが出力される。
 ```bash
 npm install
 npm run build
 ```
+
+### ダウンロードして利用する場合
+ダウンロードしたzipを解凍して上記のhashファイルを解凍後のディレクトリに配置する。
+

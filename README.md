@@ -14,7 +14,7 @@ cargo build --bin hash --release
 It is easier to handle png file names if they are IDs (numbers) to identify them.  
 Example (1.png)
 ```bash
-./lib/target/release/hash ./png_images ./hash
+./lib/target/release/hash ./png_images ./src/hash
 ```
 
 A text file like the following will be output. The [filename]|[hash value] will be an enumerated string.

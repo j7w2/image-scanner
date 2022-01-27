@@ -5,11 +5,15 @@ module.exports = {
     "index": './src/index.ts',
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.wasm']
+    extensions: ['.ts', '.tsx', '.js', '.wasm', '.hash']
   },
   module: {
     rules: [
       { test: /\.ts$/, loader: 'ts-loader' },
+      {
+        test: /hash$/i,
+        use: 'raw-loader',
+      },
     ],
   },
   output: {

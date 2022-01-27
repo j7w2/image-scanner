@@ -122,58 +122,57 @@ function lockOrientation(sc:any, mode: string) {
   }
 }
 
-export function imageScannerStart(path: string, w: number, h: number, yaxis: number, video: HTMLVideoElement|null|undefined, canvas_hidden: HTMLCanvasElement|null|undefined) {
-  var xmlHttp = new XMLHttpRequest();
-  xmlHttp.open("GET",path,true);
-  xmlHttp.send(null);
-  xmlHttp.onload = function(){
-    const hashTexts = xmlHttp.responseText;
-    return new Promise((resolve, reject) => {
+function imageScannerExec(hashTexts: string, w: number, h: number, yaxis: number, video: HTMLVideoElement|null|undefined, canvas_hidden: HTMLCanvasElement|null|undefined) {
+  return new Promise((resolve, reject) => {
     
-      if (video === undefined || video === null) return reject("not found video element")
-      if (canvas_hidden === undefined || canvas_hidden === null) return reject("not found canvas element")
-  
-      imageScanner = new ImageScanner(hashTexts, w, h, yaxis, video as HTMLVideoElement, canvas_hidden as HTMLCanvasElement)
-      try {
-        requestFullScreen(document.documentElement);
-        setTimeout(function () {
-          lockOrientation(screen, "portrait");
-        }, 1);
-      } catch (error) {
-      }
-  
-      window.addEventListener("orientationchange", function () {
-        imageScanner?.stop()
-        reject("Be sure to try the screen orientation in portrait mode.")
-        return
-      });
-  
-      const nav = navigator as any
-      var mediaDevices = nav.mediaDevices || ((nav.mozGetUserMedia || nav.webkitGetUserMedia) ? {
-        getUserMedia: function (c: any) {
-          return new Promise(function (y, n) {
-            (nav.mozGetUserMedia ||
-              nav.webkitGetUserMedia).call(navigator, c, y, n);
-          });
-        }
-      } : null);
-    
-      if (!mediaDevices) {
-        reject("This browser is not available.")
-        return;
-      }
-      mediaDevices
-        .getUserMedia(constrains)
-        .then(function (stream: any) {
-          (video as HTMLVideoElement).srcObject = stream;
-          (video as HTMLVideoElement).play();
-          imageScanner?.shatter(resolve, reject)
-        })
-        .catch(function (err: any) {
-          reject(err)
-        });
+    if (video === undefined || video === null) return reject("not found video element")
+    if (canvas_hidden === undefined || canvas_hidden === null) return reject("not found canvas element")
+
+    imageScanner = new ImageScanner(hashTexts, w, h, yaxis, video as HTMLVideoElement, canvas_hidden as HTMLCanvasElement)
+    try {
+      requestFullScreen(document.documentElement);
+      setTimeout(function () {
+        lockOrientation(screen, "portrait");
+      }, 1);
+    } catch (error) {
+    }
+
+    window.addEventListener("orientationchange", function () {
+      imageScanner?.stop()
+      reject("Be sure to try the screen orientation in portrait mode.")
+      return
     });
-  }
+
+    const nav = navigator as any
+    var mediaDevices = nav.mediaDevices || ((nav.mozGetUserMedia || nav.webkitGetUserMedia) ? {
+      getUserMedia: function (c: any) {
+        return new Promise(function (y, n) {
+          (nav.mozGetUserMedia ||
+            nav.webkitGetUserMedia).call(navigator, c, y, n);
+        });
+      }
+    } : null);
+  
+    if (!mediaDevices) {
+      reject("This browser is not available.")
+      return;
+    }
+    mediaDevices
+      .getUserMedia(constrains)
+      .then(function (stream: any) {
+        (video as HTMLVideoElement).srcObject = stream;
+        (video as HTMLVideoElement).play();
+        imageScanner?.shatter(resolve, reject)
+      })
+      .catch(function (err: any) {
+        reject(err)
+      });
+  });
+}
+
+import hashStrings from './hash';
+export function imageScannerStart(w: number, h: number, yaxis: number, video: HTMLVideoElement|null|undefined, canvas_hidden: HTMLCanvasElement|null|undefined) {
+  return imageScannerExec(hashStrings, w, h, yaxis, video, canvas_hidden)
 }
 
 export function imageScannerStop() {
