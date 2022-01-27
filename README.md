@@ -56,7 +56,7 @@ The video tag and canvas tag (display:none) are required, and the webpack pre-co
     document.getElementById("video"), // video element
     document.getElementById("frame") // canvas element
   ).then(res => {
-    console.log('成功!: id=' + res)
+    console.log('Success!: id=' + res)
   }).catch(err => {
     console.log(err)
   })
