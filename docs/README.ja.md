@@ -6,7 +6,7 @@
 ## png画像のハッシュ値を計算
 予め用意した画像を以下のようにスライドした画像にトリミングしてハッシュ値を計算する。  
 
-![images](https://i-407.com/images/github/image-trims.png)  
+![images](https://i-407.com/images/github/image-trims_hu365f12c1d7c40a6ecfc0fef77bd6436b_40434_400x1524_fit_q95_h2_box_3.webp)  
 
 最大5列5行のトリミングをデフォルトとする。  
   
