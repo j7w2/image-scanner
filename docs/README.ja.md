@@ -31,3 +31,13 @@ npm run build
 ### ダウンロードして利用する場合
 ダウンロードしたzipを解凍して上記のhashファイルを解凍後のディレクトリに配置する。
 
+### ページ内で読み込み
+```html
+<video id="video" autoplay playsinline></video>
+<canvas id="frame" style="display: none;"></canvas>
+
+<script type="text/javascript" src="./image-scanner.js"></script>
+<script type="text/javascript">
+  imageScannerStart(180, 180, 100, document.getElementById("video"), document.getElementById("frame"))
+</script>
+```
