@@ -63,6 +63,7 @@ class ImageScanner {
       this.canvas_hidden.toBlob(function (blob: Blob|null) {
       self.execTime += 1;
       if (self.execTime > 2000) {
+        reject(new Error(__("Reload this page and try again.")))
         return false
       }
       if (blob == null) return self.shatter(resolve, reject)
@@ -125,8 +126,8 @@ function lockOrientation(sc:any, mode: string) {
 function imageScannerExec(hashTexts: string, w: number, h: number, yaxis: number, video: HTMLVideoElement|null|undefined, canvas_hidden: HTMLCanvasElement|null|undefined) {
   return new Promise((resolve, reject) => {
     
-    if (video === undefined || video === null) return reject("not found video element")
-    if (canvas_hidden === undefined || canvas_hidden === null) return reject("not found canvas element")
+    if (video === undefined || video === null) return reject(new Error(""))
+    if (canvas_hidden === undefined || canvas_hidden === null) return reject(new Error(""))
 
     imageScanner = new ImageScanner(hashTexts, w, h, yaxis, video as HTMLVideoElement, canvas_hidden as HTMLCanvasElement)
     try {
@@ -139,7 +140,7 @@ function imageScannerExec(hashTexts: string, w: number, h: number, yaxis: number
 
     window.addEventListener("orientationchange", function () {
       imageScanner?.stop()
-      reject("Be sure to try the screen orientation in portrait mode.")
+      reject(new Error(__("Be sure to try the screen orientation in portrait mode.")))
       return
     });
 
@@ -154,7 +155,7 @@ function imageScannerExec(hashTexts: string, w: number, h: number, yaxis: number
     } : null);
   
     if (!mediaDevices) {
-      reject("This browser is not available.")
+      reject(new Error(__("This browser is not available.")))
       return;
     }
     mediaDevices
