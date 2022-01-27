@@ -44,7 +44,7 @@ class ImageScanner {
   }
   
   public async shatter(resolve: any, reject: any) {
-    await this.sleep(50)
+    await this.sleep(100)
     var ctx_hidden = this.canvas_hidden.getContext('2d') as CanvasRenderingContext2D;
     var w = this.video.offsetWidth;
     var h = this.video.offsetHeight
@@ -61,6 +61,7 @@ class ImageScanner {
       x, y, this.width * ratio, this.height * ratio,
       0, 0, this.width * ratio, this.height * ratio);
       this.canvas_hidden.toBlob(function (blob: Blob|null) {
+
       self.execTime += 1;
       if (self.execTime > 2000) {
         reject(new Error(__("Reload this page and try again.")))
