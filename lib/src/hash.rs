@@ -12,9 +12,7 @@ fn write_file(output: &String, result: &String) -> Result<(), Box<std::error::Er
     Ok(())
 }
 
-fn get_hash(
-    target: &mut image::ImageBuffer<image::Rgba<u8>, std::vec::Vec<u8>>,
-) -> ImageHash {
+fn get_hash(target: &mut image::ImageBuffer<image::Rgba<u8>, std::vec::Vec<u8>>) -> ImageHash {
     let hasher = HasherConfig::new().hash_size(12, 12).to_hasher();
     let hash = hasher.hash_image(target);
     return hash;
@@ -65,22 +63,20 @@ fn main() {
         let path = _entry.path();
         let file_name = _entry.file_name();
         let path_str = String::from(path.to_string_lossy());
-        let mut f_name = String::from(file_name.to_string_lossy()).replace(".png", "");
+        let f_name = String::from(file_name.to_string_lossy()).replace(".png", "");
         let mut _image = image::open(path_str).unwrap();
         let mut target =
             image::imageops::resize(&_image, size, size, image::imageops::FilterType::Nearest);
 
-        if f_name.contains("_o") {
-            f_name = f_name.replace("_o", "");
-            let hv = get_hash(&mut target);
-            result_string = result_string + &f_name.to_string() + "|" + &hv.to_base64().to_string() + " ";
-        } else {
-            for n in 0..max {
-                let sub = size / 8 / max;
-                let hash_vec = get_hashes(&mut target, size, sub, n);
-                for hv in hash_vec.iter() {
-                    result_string = result_string + &f_name.to_string() + "|" + &hv.to_base64().to_string() + " " ;
-                }
+        let hv = get_hash(&mut target);
+        result_string =
+            result_string + &f_name.to_string() + "|" + &hv.to_base64().to_string() + " ";
+        for n in 0..max {
+            let sub = size / 8 / max;
+            let hash_vec = get_hashes(&mut target, size, sub, n);
+            for hv in hash_vec.iter() {
+                result_string =
+                    result_string + &f_name.to_string() + "|" + &hv.to_base64().to_string() + " ";
             }
         }
     }
